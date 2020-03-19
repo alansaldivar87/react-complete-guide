@@ -6,7 +6,8 @@ const person = props => {
 	const {
 		name,
 		age,
-		classname
+		classname,
+		children
 	} = props
 
 	return (
@@ -19,6 +20,9 @@ const person = props => {
 			}
 		>
 			My name is { name } and my age is { age }
+			<>
+				{ children }
+			</>
 		</div>
 	)
 }
@@ -26,7 +30,8 @@ const person = props => {
 person.propTypes = {
 	name: PropTypes.string,
 	age: PropTypes.number,
-	classname: PropTypes.string
+	classname: PropTypes.string,
+	children: PropTypes.any
 }
 
 export default person
