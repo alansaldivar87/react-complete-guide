@@ -1,5 +1,5 @@
 import React from 'react'
-import PropTypes from "prop-types"
+import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
 const person = props => {
@@ -20,9 +20,7 @@ const person = props => {
 			}
 		>
 			My name is { name } and my age is { age }
-			<>
-				{ children }
-			</>
+			{ children }
 		</div>
 	)
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Person from './components/Person/Person'
+import Person from './components/Person'
 import './App.css'
 
 class App extends Component {
@@ -8,8 +8,15 @@ class App extends Component {
 			<div className="App">
 				<Person
 					name="Alan"
-					age="32"
+					age={ 32 }
 				/>
+				<hr/>
+				<Person
+					name="Monica"
+					age={ 35 }
+				>
+					<p>Children example</p>
+				</Person>
 			</div>
 		)
 	}
