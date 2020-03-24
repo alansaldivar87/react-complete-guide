@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from 'react'
+import PropTypes from 'prop-types'
 import Person from './components/Person'
 import './App.css'
 
@@ -8,6 +9,7 @@ const THREE = 3
 
 const App = props => {
 
+	// Initial state
 	const [ state, setState ] = useState({
 		persons: new Map([
 			[ONE, { name: 'Jhon Doe', age: 27 }],
@@ -17,6 +19,7 @@ const App = props => {
 		otherText: 'Change me dude!'
 	})
 
+	// Update persons map
 	const updatePersonsNames = () => {
 		const {
 			persons
@@ -34,12 +37,35 @@ const App = props => {
 		})
 	}
 
+	// Update other state
 	const updateOtherText = () => {
 		setState({
 			...state,
 			otherText: 'Sweet! I am the new text'
 		})
 	}
+
+	// Render the person shelve
+	const renderPerson = ({ name, age, children }, index) => (
+		<Fragment
+			key={ index }
+		>
+			<Person
+				name={ name }
+				age={ age }
+			>
+				{ children }
+			</Person>
+			{ index < persons.length - ONE && <hr/> }
+		</Fragment>
+	)
+
+	// Validate arguments of renderPerson method
+	renderPerson.propTypes = {
+		name: PropTypes.string,
+		age: PropTypes.number,
+		children: PropTypes.any
+	};
 
 	const {
 		persons,
@@ -60,25 +86,8 @@ const App = props => {
 				Update Other text
 			</button>
 
-			{
-				persons && [...persons.values()].map(({
-					name,
-					age,
-					children
-				}, index) => (
-					<Fragment
-						key={ index }
-					>
-						<Person
-							name={ name }
-							age={ age }
-						>
-							{ children }
-						</Person>
-						{ index < persons.length - ONE && <hr/> }
-					</Fragment>
-				))
-			}
+			{ persons && [...persons.values()].map(renderPerson) }
+
 			<p>{ otherText }</p>
 
 		</div>
