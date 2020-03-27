@@ -10,7 +10,7 @@ const THREE = 3
 const App = props => {
 
 	// Initial state
-	const [ state, setState ] = useState({
+	const [state, setState] = useState({
 		persons: new Map([
 			[ONE, { name: 'Jhon Doe', age: 27 }],
 			[TWO, { name: 'Jane Doe', age: 19 }],
@@ -45,14 +45,23 @@ const App = props => {
 		})
 	}
 
+	const handleCustomClick = name => {
+		alert(`You clicked on ${name}`)
+	}
+
 	// Render the person shelve
-	const renderPerson = ({ name, age, children }, index) => (
+	const renderPerson = ({
+		name,
+		age,
+		children
+	}, index) => (
 		<Fragment
 			key={ index }
 		>
 			<Person
-				name={ name }
-				age={ age }
+				name={name}
+				age={age}
+				customClick={ () => handleCustomClick(name) }
 			>
 				{ children }
 			</Person>

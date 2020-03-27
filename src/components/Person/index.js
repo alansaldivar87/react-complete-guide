@@ -7,7 +7,8 @@ const person = props => {
 		name,
 		age,
 		classname,
-		children
+		children,
+		customClick
 	} = props
 
 	return (
@@ -18,6 +19,7 @@ const person = props => {
 					'person'
 				)
 			}
+			onClick={ customClick }
 		>
 			My name is { name } and my age is { age }
 			{ children }
@@ -29,7 +31,8 @@ person.propTypes = {
 	name: PropTypes.string,
 	age: PropTypes.number,
 	classname: PropTypes.string,
-	children: PropTypes.any
+	children: PropTypes.any,
+	customClick: PropTypes.func
 }
 
 export default person
