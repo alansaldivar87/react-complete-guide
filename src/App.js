@@ -16,7 +16,8 @@ const App = props => {
 			[TWO, { name: 'Jane Doe', age: 19 }],
 			[THREE, { name: 'George Doe', age: 32, children: <div>Hello</div> }]
 		]),
-		otherText: 'Change me dude!'
+		otherText: 'Change me dude!',
+		inputValue: ''
 	})
 
 	// Update persons map
@@ -49,6 +50,20 @@ const App = props => {
 		alert(`You clicked on ${name}`)
 	}
 
+	const updateInput = event => {
+		const {
+			target: {
+				value
+			}
+		} = event
+
+		setState({
+			...state,
+			inputValue: value
+		})
+
+	}
+
 	// Render the person shelve
 	const renderPerson = ({
 		name,
@@ -78,7 +93,8 @@ const App = props => {
 
 	const {
 		persons,
-		otherText
+		otherText,
+		inputValue
 	} = state
 
 	return (
@@ -97,7 +113,16 @@ const App = props => {
 
 			{ persons && [...persons.values()].map(renderPerson) }
 
-			<p>{ otherText }</p>
+			<div>{ otherText }</div>
+
+			<div>
+				<h2>Two way binding</h2>
+				<input
+					value={ inputValue }
+					onChange={ updateInput }
+				/>
+				<p>Result: { inputValue }</p>
+			</div>
 
 		</div>
 	)
