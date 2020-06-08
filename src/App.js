@@ -3,89 +3,87 @@ import PropTypes from 'prop-types'
 import Person from './components/Person'
 import './App.css'
 
-const ONE = 1
-const TWO = 2
-const THREE = 3
-
 const App = props => {
 
 	// Initial state
 	const [state, setState] = useState({
 		persons: new Map([
-			[ONE, { name: 'Jhon Doe', age: 27 }],
-			[TWO, { name: 'Jane Doe', age: 19 }],
-			[THREE, { name: 'George Doe', age: 32, children: <div>Hello</div> }]
+			['person1', {
+				id: '1',
+				name: 'Jhon Doe',
+				age: 27
+			}],
+			['person2', {
+				id: '2',
+				name: 'Jane Doe',
+				age: 19
+			}],
+			['person3', {
+				id: '3',
+				name: 'George Doe',
+				age: 32,
+				children: <div>I am just a div children here</div>
+			},]
 		]),
-		otherText: 'Change me dude!',
-		inputValue: ''
+		showPersons: false
 	})
 
 	// Update persons map
-	const updatePersonsNames = () => {
-		const {
-			persons
-		} = state
+	const updateAllNames = () => {
+		const { persons } = state
+		const updatedPersons = new Map([...persons])
 
-		const newPersons = new Map([...persons])
-
-		newPersons.forEach(person => {
+		updatedPersons.forEach(person => {
 			person.name = 'not of your business'
 		})
 
+		// Update unique key in the persons map object
+		updatedPersons.get('person3').children = <>
+			<p>Ups...someone has updated my parent. I am now a P element</p>
+		</>
+
 		setState({
 			...state,
-			persons: newPersons
+			persons: updatedPersons
 		})
 	}
 
-	// Update other state
-	const updateOtherText = () => {
-		setState({
-			...state,
-			otherText: 'Sweet! I am the new text'
-		})
-	}
-
-	const handleCustomClick = name => {
+	const handlePersonClick = name => {
 		alert(`You clicked on ${name}`)
 	}
 
-	const updateInput = event => {
-		const {
-			target: {
-				value
-			}
-		} = event
+	const toggleShowPersons = () => {
+		const { showPersons } = state;
 
 		setState({
 			...state,
-			inputValue: value
+			showPersons: !showPersons
 		})
-
 	}
 
 	// Render the person shelve
 	const renderPerson = ({
+		id,
 		name,
 		age,
 		children
-	}, index) => (
+	}) => (
 		<Fragment
-			key={ index }
+			key={ id }
 		>
 			<Person
 				name={name}
 				age={age}
-				customClick={ () => handleCustomClick(name) }
+				customClick={ () => handlePersonClick(name) }
 			>
 				{ children }
 			</Person>
-			{ index < persons.length - ONE && <hr/> }
 		</Fragment>
 	)
 
 	// Validate arguments of renderPerson method
 	renderPerson.propTypes = {
+		id: PropTypes.string,
 		name: PropTypes.string,
 		age: PropTypes.number,
 		children: PropTypes.any
@@ -93,37 +91,23 @@ const App = props => {
 
 	const {
 		persons,
-		otherText,
-		inputValue
+		showPersons
 	} = state
 
 	return (
 		<div className="App">
 			<button
-				onClick={ updatePersonsNames }
+				onClick={ updateAllNames }
 			>
 				Update All Names
 			</button>
-
 			<button
-				onClick={ updateOtherText }
+				onClick={ toggleShowPersons }
 			>
-				Update Other text
+				{ showPersons ? 'Hide' : 'Show' }
 			</button>
 
-			{ persons && [...persons.values()].map(renderPerson) }
-
-			<div>{ otherText }</div>
-
-			<div>
-				<h2>Two way binding</h2>
-				<input
-					value={ inputValue }
-					onChange={ updateInput }
-				/>
-				<p>Result: { inputValue }</p>
-			</div>
-
+			{ showPersons && [...persons.values()].map(renderPerson) }
 		</div>
 	)
 }
