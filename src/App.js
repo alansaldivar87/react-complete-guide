@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react'
 import PropTypes from 'prop-types'
 import Person from './components/Person'
+import Radium from 'radium'
 import './App.css'
 
 const App = props => {
@@ -112,4 +113,4 @@ const App = props => {
 	)
 }
 
-export default App
+export default Radium(App)
