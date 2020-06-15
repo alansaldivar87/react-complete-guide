@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
+import Radium from 'radium'
 import './styles.scss'
 
 const person = props => {
@@ -12,8 +13,16 @@ const person = props => {
 		customClick
 	} = props
 
+	// Possible with Radium
+	const style = {
+		'@media (min-width: 500px)': {
+			width: '450px'
+		}
+	}
+
 	return (
 		<div
+			style={ style }
 			className={
 				classNames(
 					classname,
@@ -36,4 +45,4 @@ person.propTypes = {
 	customClick: PropTypes.func
 }
 
-export default person
+export default Radium(person)
