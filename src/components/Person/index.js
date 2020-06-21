@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import Radium from 'radium'
 import './styles.scss'
 
 const person = props => {
@@ -45,4 +44,4 @@ person.propTypes = {
 	customClick: PropTypes.func
 }
 
-export default Radium(person)
+export default person

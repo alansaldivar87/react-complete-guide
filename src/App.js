@@ -1,7 +1,6 @@
 import React, { Fragment, useState } from 'react'
 import PropTypes from 'prop-types'
 import Person from './components/Person'
-import Radium, { StyleRoot } from 'radium'
 import './App.css'
 
 const App = props => {
@@ -95,43 +94,28 @@ const App = props => {
 		showPersons
 	} = state
 
-	const btnStyle = {
-		fontSize: '20px',
-		cursor: 'pointer',
-		padding: '8px',
-		borderRadius: '4px',
-		margin: '1rem',
-		':hover': {
-			backgroundColor: 'white'
-		}
-	}
-
 	return (
-		<StyleRoot>
-			<div className="App">
-				<button
-					key="buttonUpdate"
-					style={ btnStyle }
-					onClick={ updateAllNames }
-				>
-					Update All Names
-				</button>
-				<button
-					key="buttonToggle"
-					style={ btnStyle }
-					onClick={ toggleShowPersons }
-				>
-					{ showPersons ? 'Hide' : 'Show' }
-				</button>
+		<div className="App">
+			<button
+				key="buttonUpdate"
+				onClick={ updateAllNames }
+			>
+				Update All Names
+			</button>
+			<button
+				key="buttonToggle"
+				onClick={ toggleShowPersons }
+			>
+				{ showPersons ? 'Hide' : 'Show' }
+			</button>
 
-				<div
-					className="personsList"
-				>
-					{ showPersons && [...persons.values()].map(renderPerson) }
-				</div>
+			<div
+				className="personsList"
+			>
+				{ showPersons && [...persons.values()].map(renderPerson) }
 			</div>
-		</StyleRoot>
+		</div>
 	)
 }
 
-export default Radium(App)
+export default App
