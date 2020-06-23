@@ -1,9 +1,9 @@
-import React, { Fragment, useState } from 'react'
-import PropTypes from 'prop-types'
-import Person from './components/Person'
+import React, { useState } from 'react'
+import Persons from './components/Persons'
+import Cockpit from './components/Cockpit'
 import './App.css'
 
-const App = props => {
+const App = () => {
 
 	// Initial state
 	const [state, setState] = useState({
@@ -22,7 +22,7 @@ const App = props => {
 				id: '3',
 				name: 'George Doe',
 				age: 32,
-				children: <div>I am just a div children here</div>
+				children: <p>George is cool</p>
 			},]
 		]),
 		showPersons: false
@@ -61,34 +61,6 @@ const App = props => {
 		})
 	}
 
-	// Render the person shelve
-	const renderPerson = ({
-		id,
-		name,
-		age,
-		children
-	}) => (
-		<Fragment
-			key={ id }
-		>
-			<Person
-				name={name}
-				age={age}
-				customClick={ () => handlePersonClick(name) }
-			>
-				{ children }
-			</Person>
-		</Fragment>
-	)
-
-	// Validate arguments of renderPerson method
-	renderPerson.propTypes = {
-		id: PropTypes.string,
-		name: PropTypes.string,
-		age: PropTypes.number,
-		children: PropTypes.any
-	};
-
 	const {
 		persons,
 		showPersons
@@ -96,24 +68,22 @@ const App = props => {
 
 	return (
 		<div className="App">
-			<button
-				key="buttonUpdate"
-				onClick={ updateAllNames }
-			>
-				Update All Names
-			</button>
-			<button
-				key="buttonToggle"
-				onClick={ toggleShowPersons }
-			>
-				{ showPersons ? 'Hide' : 'Show' }
-			</button>
+			<Cockpit
+				updateAll={updateAllNames}
+				togglePersons={toggleShowPersons}
+				show={showPersons}
+			/>
 
-			<div
-				className="personsList"
-			>
-				{ showPersons && [...persons.values()].map(renderPerson) }
-			</div>
+			{
+				showPersons && (
+					<div className="personsList">
+						<Persons
+							persons={persons}
+							clicked={handlePersonClick}
+						/>
+					</div>
+				)
+			}
 		</div>
 	)
 }

@@ -12,16 +12,8 @@ const person = props => {
 		customClick
 	} = props
 
-	// Possible with Radium
-	const style = {
-		'@media (min-width: 500px)': {
-			width: '450px'
-		}
-	}
-
 	return (
 		<div
-			style={ style }
 			className={
 				classNames(
 					classname,
@@ -30,7 +22,7 @@ const person = props => {
 			}
 			onClick={ customClick }
 		>
-			My name is { name } and my age is { age }
+			{`Hi ${name}, ${age}`}
 			{ children }
 		</div>
 	)
